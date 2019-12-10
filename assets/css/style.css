@@ -1,0 +1,108 @@
+body
+{
+	background-image: url("../img/background/04.jpg");
+	background-size: cover; 
+	background-attachment: fixed;
+}
+
+.white_block_left
+{
+	background-color: rgba(255,255,255, 0.6);
+	width: 90%;
+	border-radius: 0 2000rem 2000rem 0;
+	color: white;
+	margin-bottom: 10rem;
+	padding: 2rem 3rem 2rem 4rem;
+}
+
+.white_block_right
+{
+	background-color: rgba(255,255,255, 0.6);
+	width: 90%;
+	border-radius: 2000rem 0 0 2000rem;
+/*	color: white;*/
+	margin-bottom: 10rem;
+	margin-left: 10%;
+	padding: 2rem 3rem 2rem 4rem;
+}
+
+.w75
+{
+	background-color: rgba(255,255,255, 0.6);
+}
+
+.input_header
+{	
+	background-color:  rgba(255,255,255,0);
+	border-bottom-color: white;	
+	color: white;
+
+}
+.input_header::placeholder
+{
+	color: white;
+}
+
+footer
+{
+	background-color: rgba(255,255,255, 0.6);
+	bottom: -3rem;
+	width: 30%;
+	margin-left:35%;
+	border-radius: 100rem;
+	height: 6rem;
+	position: sticky;
+}
+
+.ombre
+{
+	box-shadow: 0 0 1rem black;
+}
+
+.ombre-t
+{
+	text-shadow: 0 0 1rem black;
+}
+
+.pro_card
+{
+	border-radius: 100rem 100rem 20rem 20rem;
+	align-items: center;
+	padding: 1rem;
+	width: 17rem;
+	margin-right: auto;
+	margin-left: auto;
+	height: 38rem;
+}
+
+.div_card
+{
+	width: 75%;
+}
+
+.img_card
+{
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+	height: 15rem;
+}
+
+.centre
+{
+	align-items: center;
+}
+
+.nav_size
+{
+	height: 5rem;
+	font-size: 2.5rem;
+}
+
+.price_card
+{
+	font-size: 3rem;
+	position: absolute;
+	bottom: -1rem;
+	left: 8.5rem;
+}
