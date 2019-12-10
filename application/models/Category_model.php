@@ -41,4 +41,13 @@ class Category_model extends CI_Model
 		$this->db->where('cat_id', $id);
 		$this->db->update('category', $data);
 	}
+
+	public function subcategory_select()
+	{
+		$this->db->where('cat_parent !=', 0);
+		$query = $this->db->get('category');
+		$result = $query->result();
+
+		return $result;
+	}
 }       

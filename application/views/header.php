@@ -47,10 +47,21 @@
 	        
 	        <div class="dropdown-menu w75 mt-1" aria-labelledby="navbarDropdownMenuLink">
 	        	<?php
-				foreach ($categ as $row)
-				{ ?>
-	          		<a class="dropdown-item" href="#"><?= $row->cat_type ?></a>
-	          	<?php } ?>
+				foreach ($parent as $row)
+				{ 
+					if($row->cat_parent==0)
+					{?>
+		          		<a class="dropdown-item font-weight-bolder" href="<?= site_url("brain/category/".$row->cat_id) ?>"><?= $row->cat_type ?></a>
+		          		<?php
+		          		foreach ($categ as $key) 
+		          		{
+		          			if($key->cat_parent == $row->cat_id)
+		          			{ ?>
+		          				<a class="dropdown-item ml-3" href="<?= site_url("brain/products/".$key->cat_id) ?>"><?= $key->cat_type ?></a>
+		          			<?php }
+		          		}
+		          	}
+	          	} ?>
 	        </div>
 
 	      </li>

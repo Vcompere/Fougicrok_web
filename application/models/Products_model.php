@@ -42,4 +42,12 @@ class Products_model extends CI_Model
 		$this->db->update('products', $data);
 	}
 	
+	public function products_type($id)
+	{
+		$this->db->where('cat_id', $id);
+		$query = $this->db->get('products');
+		$result = $query->result();
+
+		return $result;
+	}
 }       

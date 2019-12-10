@@ -7,7 +7,8 @@ class MY_Header
         public function set_header()
         {
 			$this->load->model('Category_model');
-			$view['categ'] = $this->Category_model->category_select();
+			$view['parent'] = $this->Category_model->category_select();
+			$view['categ'] = $this->Category_model->subcategory_select();
 			$this->load->view('header', $view);
         }
 

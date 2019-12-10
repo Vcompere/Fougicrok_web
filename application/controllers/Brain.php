@@ -23,19 +23,24 @@ class Brain extends CI_Controller
 		}
 		else
 		{
-			$this->load->view('header');
+			$this->my_header->set_header();
 			$this->load->view('accueil', $view);
 			$this->load->view('footer');
 		}
 	}
 
-	public function products()
+	public function products($id)
 	{
 		$_SESSION['name'] = 'Fougère';
 		//$this->output->enable_profiler(TRUE);
 		$this->load->model('Products_model');
-		$result = $this->Products_model->products_select();
+		$result = $this->Products_model->products_type($id);
 		$view['list'] = $result;
+
+		$this->load->model('Category_model');
+		$result = $this->Category_model->category_select_u($id);
+		$view['categ'] = $result;
+
 
 
 		$this->my_header->set_header();
@@ -57,7 +62,7 @@ class Brain extends CI_Controller
 		}
 		else
 		{
-			$this->load->view('header');
+			$this->my_header->set_header();
 			$this->load->view('category', $view);
 			$this->load->view('footer');
 		}
@@ -86,7 +91,7 @@ class Brain extends CI_Controller
 		}
 		else
 		{
-			$this->load->view('header');
+			$this->my_header->set_header();
 			$this->load->view('categ_modif', $view);
 			$this->load->view('footer');	
 		}
@@ -94,15 +99,15 @@ class Brain extends CI_Controller
 
 	public function profile()
 	{
-		if (isset($this->session->user))
+		if (isset($this->session->name))
 		{
-			$this->load->view('header');
+			$this->my_header->set_header();
 			$this->load->view('profile');
 			$this->load->view('footer');	
 		}
 		else
 		{
-			$this->load->view('header');
+			$this->my_header->set_header();
 			$this->load->view('sign');
 			$this->load->view('footer');	
 		}
