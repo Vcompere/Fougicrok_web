@@ -14,7 +14,7 @@
     </head>
     <body>
 <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark transparent-color font-weight-bolder sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark transcateg-color font-weight-bolder sticky-top">
 
 	  <!-- Navbar brand -->
 	   <a class="navbar-brand" href="<?= site_url("brain/accueil"); ?>">
@@ -35,10 +35,6 @@
 			<li class="nav-item">
 				<a class="nav-link" href="<?= site_url("brain/category"); ?>">Catégorie</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="<?= site_url("brain/products"); ?>">Produits</a>
-			</li>
-
 
 	      <!-- Dropdown -->
 	      <li class="nav-item dropdown">
@@ -47,7 +43,7 @@
 	        
 	        <div class="dropdown-menu w75 mt-1" aria-labelledby="navbarDropdownMenuLink">
 	        	<?php
-				foreach ($parent as $row)
+				foreach ($categ as $row)
 				{ 
 					if($row->cat_parent==0)
 					{?>
@@ -84,7 +80,7 @@
 		</li>
 		<li class="nav-item avatar">
     		<a class="nav-link p-0" href="<?= site_url("brain/profile"); ?>">
-  				<img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" class="rounded-circle z-depth-0 nav_size" alt="avatar image">
+  				<img src="<?= base_url('assets/img/products/plants/dio000.jpg') ?>" class="rounded-circle z-depth-0 nav_size" alt="avatar image">
 			</a>
 		</li>
 		<a href="<?= site_url('brain/logout') ?>">Déconnexion</a>

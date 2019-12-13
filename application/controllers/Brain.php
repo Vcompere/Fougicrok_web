@@ -117,8 +117,25 @@ class Brain extends CI_Controller
 	{
 		$this->session->sess_destroy();
 		redirect('brain/accueil');	
+	}
+
+	public function signup()
+	{
+		 if ($this->form_validation->run('signup') == FALSE)
+        {
+        	$this->my_header->set_header();
+			$this->load->view('sign');
+			$this->load->view('footer');
+            // redirect('brain/profile');
+        }
+        else
+        {
+			$this->output->enable_profiler(TRUE);
+			$this->load->model('Users_model');
+			$this->Users_model->users_insert();
+			// redirect('brain/accueil');
+		}
 	}	
 }
-
 ?>
 

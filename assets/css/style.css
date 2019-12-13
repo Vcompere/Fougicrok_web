@@ -45,13 +45,13 @@ body
 
 footer
 {
-	background-color: rgba(255,255,255, 0.6);
+	background-color: rgba(255,255,255, 1);
 	bottom: -3rem;
 	width: 30%;
 	margin-left:35%;
 	border-radius: 100rem;
 	height: 6rem;
-	position: sticky;
+	position: fixed;
 }
 
 .ombre
@@ -105,4 +105,99 @@ footer
 	position: absolute;
 	bottom: -1rem;
 	left: 8.5rem;
+}
+
+.sign
+{
+	width: 40%;
+	margin-top: 10rem;
+}
+
+.input
+{
+	background-color:  rgba(255,255,255,0);
+	border-bottom-color: rgba(151, 219, 0, 1);	
+	color: rgba(151, 219, 0, 1);
+	border-radius: 0.5rem;
+}
+.input::placeholder
+{
+	color: rgba(151, 219, 0, 1);
+}
+
+.question_select
+{
+	width: 100%;
+	background-color: rgba(255,255,255, 0);
+	padding: 0.4rem 0.6rem;
+	color: rgba(151, 219, 0, 1);
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom-color: rgba(151, 219, 0, 1);
+	border-radius: 0.5rem;	
+}
+option
+{
+	background-color: rgba(255,255,255, 0);
+}
+
+.tab
+{
+	width: 100rem;
+}
+
+.rond
+{
+	border-radius: 20rem;
+}
+
+.rond_blanc
+{
+	position: relative;
+	width: 15rem;
+	height: 15rem;
+	margin: 5rem auto;
+	border-radius: 20000000000000000000000000000000000rem;
+	transition: all 0.8s ease !important;
+	-webkit-transition: all 0.8s ease !important;
+	overflow: hidden;
+
+}
+.boudin_blanc
+{
+	position: relative;
+	width: 40%;
+	border-radius:  200000000000000000000000000000000000rem;
+	padding: 10rem 5rem;
+	transition: all 0.8s ease !important;
+	-webkit-transition: all 0.8s ease !important;
+	overflow: hidden
+	height: 15rem;
+	margin: 5rem auto;
+}
+
+.hide
+{
+	display: none;
+}
+
+.va
+{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	/*transform: translateX(-50%);*/
+	width: 100%;
+	
+}
+
+.fullw
+{
+	width: 100%;
+}
+
+span
+{
+	left: 0;
 }
