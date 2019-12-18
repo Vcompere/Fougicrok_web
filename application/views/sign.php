@@ -1,21 +1,18 @@
-<?php 
-var_dump(form_error('user_firstname'));
-?>
-<div class="w75 rond_blanc ombre" id="signup_div">
-	<div id="signup" class="vertical-align-middle">
+<div <?= !isset($signup) ? 'class="w75 rond_blanc ombre"' : 'class="w75 boudin_blanc ombre"' ?> id="signup_div">
+	<div id="signup" <?= !isset($signup)  ? 'class="vertical-align-middle"' : 'class="hide"' ?>>
 		<h3 class="text-center va text-white ombre-t font-weight-bold mx-auto">S'inscrire</h3>
 	</div>
 
 
 	
-	<div id="signup_form" class="hide">
+	<div id="signup_form" <?= !isset($signup)  ? 'class="hide"' : 'class="show"' ?>>
 		<?= form_open('brain/signup'); ?>
 		<div class="container">
 			<div class="row">
 
 				<div class="col-sm text-center">
 					<label class="hide" for="user_firstname">Prénom</label>
-		            <input type="text" name="user_firstname" class="input border-right-0  border-left-0  border-top-0" placeholder="Prénom" value='<?= isset($_POST["user_firstname"]) ? $_POST["user_firstname"] : "" ?>'><br>
+		            <input required type="text" name="user_firstname" class="input border-right-0  border-left-0  border-top-0" placeholder="Prénom" value='<?= isset($_POST["user_firstname"]) ? $_POST["user_firstname"] : "" ?>'><br>
 		            <span id="firstname_span" class="text-danger font-weight-bold"><?= form_error('user_firstname') ?></span><br>
 
 		            <label class="hide" for="user_login">Login</label>
@@ -23,13 +20,13 @@ var_dump(form_error('user_firstname'));
 					<span id="login_span" class="text-danger font-weight-bold"><?= form_error('user_login') ?></span><br>
 
 					<label class="hide" for="user_password">Mot de passe</label>
-					<input required type="password" name="user_password" class="input border-right-0  border-left-0  border-top-0" placeholder="Mot de passe" value='<?= isset($_POST["user_password"]) ? $_POST["user_password"] : "" ?>'><br>
-					<span id="password_span" class="text-danger font-weight-bold">X</span><br>
+					<input required type="password" name="user_password" class="input border-right-0  border-left-0  border-top-0" placeholder="Mot de passe"><br>
+					<span id="password_span" class="text-danger font-weight-bold"><?= form_error('user_password') ?></span><br>
 				</div>
 
 				<div class="col-sm text-center">
 		            <label class="hide" for="user_name">Nom</label>
-					<input  type="text" name="user_name" class="input border-right-0  border-left-0  border-top-0" placeholder="Nom" value='<?= isset($_POST["user_name"]) ? $_POST["user_name"] : "" ?>'><br>
+					<input required  type="text" name="user_name" class="input border-right-0  border-left-0  border-top-0" placeholder="Nom" value='<?= isset($_POST["user_name"]) ? $_POST["user_name"] : "" ?>'><br>
 					<span id="name_span" class="text-danger font-weight-bold"><?= form_error('user_name') ?></span><br>
 
 					<label class="hide" for="user_mail">Mail</label>
@@ -37,8 +34,8 @@ var_dump(form_error('user_firstname'));
 					<span id="mail_span" class="text-danger font-weight-bold"><?= form_error('user_mail') ?></span><br>
 
 					<label class="hide" for="user_passwordConfirm">Confirmer mot de passe</label>
-					<input required type="password" name="user_passwordConfirm" class="input border-right-0  border-left-0  border-top-0" placeholder="Confirmer mot de passe" value='<?= isset($_POST["user_passwordConfirm"]) ? $_POST["user_passwordConfirm"] : "" ?>'><br>
-					<span id="passwordConfirm_span" class="text-danger font-weight-bold">X</span><br>
+					<input required type="password" name="user_passwordConfirm" class="input border-right-0  border-left-0  border-top-0" placeholder="Confirmer mot de passe"> <br>
+					<span id="passwordConfirm_span" class="text-danger font-weight-bold"><?= form_error('user_passwordConfirm') ?></span><br>
 				</div>
 
 			    <label class="hide" for="user_question">Question de sécurité :</label>
@@ -49,10 +46,11 @@ var_dump(form_error('user_firstname'));
 					<option value="Depuis quand est-tu amoureux de Vincent ?">Depuis quand est-tu amoureux de Vincent ?</option>
 					<option value="J'ai plus trop d'idée de question">J'ai plus trop d'idée de question</option>
 				</select>
+				<span id="question_span" class="text-danger font-weight-bold"><?= form_error('user_question') ?></span><br>
 
 				<label class="hide" for="user_answer">Réponse à la question de sécurité</label>
 				<input required type="text" name="user_answer" class="input border-right-0  border-left-0  border-top-0 fullw mt-3" placeholder="Réponse à la question de sécurité" value='<?= isset($_POST["user_answer"]) ? $_POST["user_answer"] : "" ?>'>
-				<span id="answer_span" class="text-danger font-weight-bold">X</span><br>
+				<span id="answer_span" class="text-danger font-weight-bold"><?= form_error('user_answer') ?></span><br>
 
 		    </div>
 		    <div class="text-center">
@@ -65,25 +63,25 @@ var_dump(form_error('user_firstname'));
 
 </div>
 
-<div class="w75 rond_blanc ombre" id="signin_div">
-	<div id="signin" class="vertical-align-middle">
+<div <?= !isset($signin) ? 'class="w75 rond_blanc ombre"' : 'class="w75 boudin_blanc ombre"' ?> id="signin_div">
+	<div id="signin" <?= !isset($signin)  ? 'class="vertical-align-middle"' : 'class="hide"' ?>>
 		<h3 class="text-center va text-white ombre-t font-weight-bold mx-auto">Se connecter</h3>
 	</div>
 
-	<div id="signin_form" class="hide">
+	<div id="signin_form" <?= !isset($signin)  ? 'class="hide"' : 'class="show"' ?>>
 		<?= form_open('brain/signin'); ?>
 		<div class="container">
 			<div class="row">
 				<div class="col-sm text-center">
 					<label class="hide" for="user_login">Login</label>
-					<input required type="text" name="user_login" class="input border-right-0  border-left-0  border-top-0" placeholder="Login" value='<?= isset($_POST["user_login"]) ? $_POST["user_login"] : "" ?>'><br>
-					<span id="login_span" class="text-danger font-weight-bold">X</span><br>
+					<input  type="text" name="signin_login" class="input border-right-0  border-left-0  border-top-0" placeholder="Login" value='<?= isset($_POST["signin_login"]) ? $_POST["signin_login"] : "" ?>'><br>
+					<span id="login_span" class="text-danger font-weight-bold"><?= isset($spanLogin) ? $spanLogin : form_error('signin_login') ?></span><br>
 				</div>
 
 				<div class="col-sm text-center">
 					<label class="hide" for="user_password">Mot de passe</label>
-					<input required type="password" name="user_password" class="input border-right-0  border-left-0  border-top-0" placeholder="Mot de passe" value='<?= isset($_POST["user_password"]) ? $_POST["user_password"] : "" ?>'><br>
-					<span id="password_span" class="text-danger font-weight-bold">X</span><br>
+					<input required type="password" name="signin_password" class="input border-right-0  border-left-0  border-top-0" placeholder="Mot de passe"><br>
+					<span id="password_span" class="text-danger font-weight-bold"><?= form_error('signin_password') ?></span><br>
 				</div>
 			</div>
 		</div>

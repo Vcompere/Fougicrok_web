@@ -1,6 +1,6 @@
 <div class="text-center text-danger text-weight-bold">
 <h1 class="text-center">PROFIL</h1>
-<p class="text-center"><?= $_SESSION['name'] ?></p>
+<p class="text-center"><?= $_SESSION['login'] ?></p>
 </div>
 
 <div class="mx-auto sign">

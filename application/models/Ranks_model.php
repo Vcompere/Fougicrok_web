@@ -14,6 +14,15 @@ class Ranks_model extends CI_Model
 		return $result;
 	}
 
+	public function ranks_select_u($id)
+	{
+		$this->db->where('rank_id', $id);
+		$query = $this->db->get('ranks');
+		$result = $query->row();
+
+		return $result;
+	}
+
 	public function accueil_insert()
 	{
 		$data = $this->input->post();
