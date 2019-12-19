@@ -194,6 +194,36 @@ $config = array(
 							'regex_match' => 'Saisie invalide',
 							'max_length' => 'C\'est trop long !')
 			)
+		),
+
+		'pwd_reset' => array
+		(
+			array
+			(
+				'field' => 'user_password',
+				'label' => 'Nouveau mot de passe',
+				'rules' => array(
+							'required',
+							'regex_match['.$rgxPassword.']',
+							'min_length[8]'),
+				'errors' => array(
+							'required' => 'Mot de passe manquant',
+							'regex_match' => 'Saisie invalide',
+							'min_length' => '8 caractères minimum')
+			),
+
+			array
+			(
+				'field' => 'user_passwordConfirm',
+				'label' => 'Confirmer mot de passe',
+				'rules' => array(
+							'required',
+							'matches[user_password]')
+							,
+				'errors' => array(
+							'required' => 'Confirmation du mot de passe manquante',
+							'matches' => 'Différent du premier mot de passe')
+			),
 		)
 	);
 ?>

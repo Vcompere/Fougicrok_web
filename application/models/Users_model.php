@@ -66,6 +66,13 @@ class Users_model extends CI_Model
 		$this->db->update('users');
 	}
 
+	public function users_blocked($block, $id)
+	{
+		$this->db->set('user_blocked', $block);
+		$this->db->where('user_id', $id);
+		$this->db->update('users');
+	}
+
 	public function users_update_mail($login,$mail)
 	{
 		$this->db->set('user_mail', $mail);
@@ -82,14 +89,14 @@ class Users_model extends CI_Model
 		return $result;
 	}
 
-	public function user_try_plus($id,$try)
+	public function users_try_plus($id,$try)
 	{
 		$this->db->set('user_try', $try);
 		$this->db->where('user_id', $id);
 		$this->db->update('users');
 	}
 
-	public function user_try_reset($login)
+	public function users_try_reset($login)
 	{
 		$this->db->set('user_try', 0);
 		$this->db->where('user_login', $login);
@@ -103,5 +110,12 @@ class Users_model extends CI_Model
 		$result = $query->row();
 
 		return $result;		
+	}
+
+	public function users_pwd_update($id, $pwd)
+	{
+		$this->db->set('user_password', $pwd);
+		$this->db->where('user_id', $id);
+		$this->db->update('users');
 	}
 }      	

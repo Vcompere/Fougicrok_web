@@ -1,4 +1,4 @@
-
+<?php var_dump($this->session->rank) ?>
 <div class="text-center mt-3">
 <?php echo form_open(); ?>
 	<input type="text" name="rank_name" class="circled">

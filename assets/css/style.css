@@ -218,3 +218,15 @@ span
 	width: 70%;
 	margin: 0 auto;
 }
+
+.security_question
+{
+	font-size: 1.5rem;
+	color: rgba(151, 219, 0, 1);
+}
+
+#pwdLostTitle
+{
+	font-size: 2rem;
+	color: rgba(255, 255, 255, 1);
+}

@@ -135,7 +135,7 @@ class Brain extends CI_Controller
 			unset($data['user_passwordConfirm']);
 			$signupDate = new Datetime();
 			$data['user_password'] = password_hash($this->input->post('user_password'),PASSWORD_DEFAULT);
-			$data['user_try'] = 1;
+			$data['user_try'] = 0;
 			$data['user_blocked'] = md5($this->input->post('user_login'));
 
 			$this->load->model('Users_model');
@@ -231,8 +231,9 @@ class Brain extends CI_Controller
         	{
         		if ($result->user_try >= 3)
         		{
-        			$this->my_header->set_header();
-					$this->load->view('password_lost', $result);
+        			$data['result'] = $result;
+					$this->my_header->set_header();
+					$this->load->view('password_lost',$data);
 					$this->load->view('footer');
         		}
         		else
@@ -246,8 +247,17 @@ class Brain extends CI_Controller
 			        }
 			        else
 			        {
+			        	$this->load->model('Ranks_model');
+			        	$rankResult = $this->Ranks_model->ranks_select_u($result->rank_id);
 			        	$this->Users_model->users_date_log($login);
-						$this->Users_model->user_try_reset($login);
+						$this->Users_model->users_try_reset($login);
+
+						$this->session->loged = TRUE;
+						$this->session->login = $result->user_login;
+						$this->session->mail = $result->user_mail;
+						$this->session->rank = $rankResult->rank_name;
+
+						redirect('brain/profile');
 					}
 				}
         	}
@@ -268,24 +278,75 @@ class Brain extends CI_Controller
 		$result = $this->Users_model->users_select_u($this->input->post('login'));
 		
 		if ($this->form_validation->run('pwd_lost') == FALSE)
-		{
+		{	
+			$data['result'] = $result;
 			$this->my_header->set_header();
-			$this->load->view('password_lost',$result);
+			$this->load->view('password_lost',$data);
 			$this->load->view('footer');
 		}
 		else
 		{
-			if($this->input->post('anwser') != $result->user_answer)
+			if($this->input->post('answer') != $result->user_answer)
 			{
 				$data["spanAnswer"] = 'La réponse ne correspond pas';
+				$data['result'] = $result;
 				$this->my_header->set_header();
-				$this->load->view('password_lost',$data + $result);
+				$this->load->view('password_lost',$data);
 				$this->load->view('footer');
+			}
+			else
+			{
+				$this->Users_model->users_try_reset($this->input->post('login'));
+
+				if(isset($_POST['remember']))
+				{
+					redirect('brain/profile');
+				}
+				else if(isset($_POST['mail']))
+				{
+					$data['user_blocked'] = md5($result->user_login);
+					$this->Users_model->users_blocked($data['user_blocked'], $result->user_id);
+
+					include 'application/views/pwd_mail.php';
+					$this->email->from('nepasrepondre@fougicrok.com');
+					$this->email->to($result->user_login);
+					$this->email->set_mailtype("html");
+					$this->email->subject('Réinitialisation de votre mot de passe');
+					$this->email->message($message);
+					$this->email->send();
+
+					$msg['msg'] = 'Un mail de réinitialisation vient d\'être envoyé à '.$result->user_mail.'.';
+					$this->my_header->set_header();
+					$this->load->view('texted', $msg);
+					$this->load->view('footer');
+				}
 			}
 		}
 	}
-	
 
+	public function password_reset($block)
+	{
+		//$this->output->enable_profiler(TRUE);
+		if ($this->form_validation->run('pwd_reset') == FALSE)
+		{
+			$this->my_header->set_header();
+			$this->load->view('password_reset');
+			$this->load->view('footer');
+		}
+		else
+		{
+			$this->load->model('Users_model');
+			$result = $this->Users_model->users_select_u_block($block);
+
+			$pwd = password_hash($this->input->post('user_password'),PASSWORD_DEFAULT);
+			$this->Users_model->users_blocked_reset($block);
+			$this->Users_model->users_try_reset($result->user_login);
+			$this->Users_model->users_pwd_update($result->user_id, $pwd);
+
+			redirect('brain/profile');
+		}
+	}
+	
 	public function password_verify($pwd)
 	{
 		$this->load->model('Users_model');
@@ -302,7 +363,7 @@ class Brain extends CI_Controller
 				$try = intval($result->user_try);
 				$try++;
 				$this->form_validation->set_message('password_verify', 'Mot de passe incorrect');
-				$this->Users_model->user_try_plus($result->user_id, $try);
+				$this->Users_model->users_try_plus($result->user_id, $try);
 				return FALSE;	
 			}
 		}

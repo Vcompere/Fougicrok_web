@@ -33,6 +33,12 @@
 	    <!-- Links -->
 	    <ul class="navbar-nav mr-auto">
 			<li class="nav-item">
+				<?php if($this->session->rank == 'admin' || $this->session->rank == 'super_admin')
+				{ ?>
+					<a class="nav-link font-weight-bold" href="<?= site_url("admin/panel"); ?>">Administration</a>
+				<?php } ?>
+			</li>
+			<li class="nav-item">
 				<a class="nav-link" href="<?= site_url("brain/category"); ?>">Catégorie</a>
 			</li>
 
