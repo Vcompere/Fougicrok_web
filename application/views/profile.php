@@ -1,61 +1,49 @@
-<div class="text-center text-danger text-weight-bold">
-<h1 class="text-center">PROFIL</h1>
-<p class="text-center"><?= $_SESSION['login'] ?></p>
-</div>
+<h2 class="text-center text-white ombre-t mt-5 font-weight-bold text-uppercase"><?= "Mon compte".$_SESSION['login'] ?></h2>
+<?php var_dump($_SESSION['cDate']) ?>
 
-<div class="mx-auto sign">
-	<div class="nav nav-justified" role="tablist">
-		<div class="bg-info nav-item">
-			<a class="nav-link" id="sign_up_link" data-toggle="tab" href="#sign_up" role="tab" aria-controls="sign_up" aria-selected="true">S'inscrire</a>
-		</div>
-		<div class="bg-secondary nav-item">
-			<a class="nav-link" id="sign_in_link" data-toggle="tab" href="#sign_in" role="tab" aria-controls="sign_in" aria-selected="false">Se connecter</a>
+<div class="row">
+	<div id="info_profile_btn" class="w75 rond_blanc ombre ml-auto">
+		<div class="vertical-align-middle">
+			<h3 class="text-center va text-white ombre-t font-weight-bold mx-auto">Informations personnelles</h3>
 		</div>
 	</div>
-
-	<div class="tab-content">
-			<div class="tab-pane bg-info show active" id="sign_up" role="tabpanel" aria-labelledby="sign_up_link">
-				toto
-			</div>
-
-			<div class="tab-pane bg-secondary" id="sign_in" role="tabpanel" aria-labelledby="sign_in_link">
-				tata
-			</div>
+	<div id="adress_profile_btn" class="w75 rond_blanc ombre ">
+		<div class="vertical-align-middle">
+			<h3 class="text-center va text-white ombre-t font-weight-bold mx-auto">Mes adresses</h3>
+		</div>
+	</div>
+	<div id="orders_profile_btn" class="w75 rond_blanc ombre mr-auto">
+		<div class="vertical-align-middle">
+			<h3 class="text-center va text-white ombre-t font-weight-bold mx-auto">Mes commandes</h3>
+		</div>
 	</div>
 </div>
 
+<div class="hide tab_panel w75 rounded mx-auto ombre inline font-weight-bold p-3" id="info_profile_div">
+	<p class="inline">Nom :</p>
+	<p class="inline"><?= $_SESSION['name'] ?></p><br>
 
+	<p class="inline">Prénom :</p>
+	<p class="inline"><?= $_SESSION['firstname'] ?></p><br>
 
-<!-- première version un peu foireuse -->
-	<div class="mx-auto sign text-white rond">
-		<ul class="nav nav-tabs nav-justified rond" id="myTab" role="tablist">
-		  <li class="nav-item">
-		    <a class="nav-link active  bg-danger text-white" id="sign_up-tab" data-toggle="tab" href="#sign_up" role="tab" aria-controls="home"
-		      aria-selected="true">S'inscrire</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link  bg-success text-white rond" id="sign_in-tab" data-toggle="tab" href="#sign_in" role="tab" aria-controls="profile"
-		      aria-selected="false">Se connecter</a>
-		  </li>
-		</ul>
-		<div class="tab-content rond" id="myTabContent">
-		  	<div class="tab-pane show  active text-center bg-danger rond" id="sign_up" role="tabpanel" aria-labelledby="sign_up-tab">
-		  		<h3>Inscription</h3>
-		  		<?= form_open(); ?>
-		            <input type="text" name="cat_type" class="input border border-right-0  border-left-0  border-top-0" placeholder="FORMULAIRE D'INSCRIPTION"><br>
-		            <input type="text" name="cat_type" class="input border border-right-0  border-left-0  border-top-0" placeholder="FORMULAIRE D'INSCRIPTION"><br>
-		            <input type="text" name="cat_type" class="input border border-right-0  border-left-0  border-top-0" placeholder="FORMULAIRE D'INSCRIPTION"><br>
-		          </form>
-		      </div>
+	<p class="inline">Login :</p>
+	<p class="inline"><?= $_SESSION['login'] ?></p><br>
 
-			  <div class="tab-pane bg-success text-center bg-success" id="sign_in" role="tabpanel" aria-labelledby="sign_in-tab">
-			  	<H3>CONNEXION</H3>
-			  	<?= form_open(); ?>
-		            <input type="text" name="cat_type" class="input border border-right-0  border-left-0  border-top-0" placeholder="FORMULAIRE DE CONNEXION"><br>
-		            <input type="text" name="cat_type" class="input border border-right-0  border-left-0  border-top-0" placeholder="FORMULAIRE DE CONNEXION"><br>
-		            <input type="text" name="cat_type" class="input border border-right-0  border-left-0  border-top-0" placeholder="FORMULAIRE DE CONNEXION"><br>
-		        </form>
-			  </div>
-		</div>
-	</div>
+	<p class="inline">E-mail :</p>
+	<p class="inline"><?= $_SESSION['mail'] ?></p><br>
 
+	<p class="inline">Dernière connexion :</p>
+	<p class="inline"><?= $_SESSION['cDate'] ?></p><br>
+</div>
+
+<div class="hide tab_panel w75 rounded mx-auto ombre" id="adress_profile_div">
+	<table class="table table-striped text-center vincent">
+		TO DO
+	</table>
+</div>
+
+<div class="hide tab_panel w75 rounded mx-auto ombre" id="orders_profile_div">
+	<table class="table table-striped text-center vincent">
+		TO DO
+	</table>
+</div>

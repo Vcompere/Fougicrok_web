@@ -6,7 +6,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 	
 class Ranks_model extends CI_Model	
 {
-	public function accueil_select()
+	public function ranks_select()
 	{
 		$query = $this->db->query("Select * from ranks");
 		$result = $query->result();
@@ -23,7 +23,7 @@ class Ranks_model extends CI_Model
 		return $result;
 	}
 
-	public function accueil_insert()
+	public function ranks_insert()
 	{
 		$data = $this->input->post();
 		$this->db->insert('ranks', $data);

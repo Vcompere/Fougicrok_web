@@ -184,10 +184,14 @@ option
 .hide
 {
 	display: none;
+	transition: all 0.8s ease !important;
+	-webkit-transition: all 0.8s ease !important;
 }
 .show
 {
 	display: block;
+	transition: all 0.8s ease !important;
+	-webkit-transition: all 0.8s ease !important;
 }
 
 .va /*vertical align*/
@@ -229,4 +233,66 @@ span
 {
 	font-size: 2rem;
 	color: rgba(255, 255, 255, 1);
+}
+
+.panier
+{
+	display: none;
+	position: absolute;
+	margin-top: 7rem;
+	right: 1rem;
+	width: 24rem;
+	max-height: 50rem;
+	border-radius: 800000rem;
+	padding: 4rem 2rem;
+	transition: all 0.8s ease !important;
+	-webkit-transition: all 0.8s ease !important;
+}
+
+.img_basket
+{
+	height: 6rem;
+	margin: auto;
+	transition: all 0.2s ease !important;
+	-webkit-transition: all 0.2s ease !important;
+}
+.img_basket:hover
+{
+	height: 8rem;
+}
+
+.basket_title
+{
+	color: white;
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+.tab_panel
+{
+	width: 80%;
+}
+
+/*.vincent
+{
+	border-radius: 10rem;
+
+}*/
+
+th
+{
+	font-size: 3rem;
+	color: rgba(151, 219, 0, 1);
+}
+
+.img_tab
+{
+	margin-right: auto;
+	margin-left: auto;
+	height: 10rem;
+}
+
+.inline
+{
+	display: inline;
 }

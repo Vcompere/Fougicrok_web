@@ -14,6 +14,15 @@ class Users_model extends CI_Model
 		return $result;
 	}
 
+	public function users_select_rank()
+	{
+		$this->db->join('ranks', 'ranks.rank_id = users.rank_id');
+		$query = $this->db->get('users');
+		$result = $query->result();
+
+		return $result;
+	}
+
 	public function users_select_u($login)
 	{
 		$this->db->where('user_login', $login);

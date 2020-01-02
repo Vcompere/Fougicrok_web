@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>Fil rouge</title>
+        <title>Fougicrok</title>
       	<!-- Font Awesome -->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 	<!-- Bootstrap jambon core CSS -->
@@ -80,10 +80,34 @@
 
 	<ul class="navbar-nav ml-auto nav-flex-icons">
 		<li class="nav-item align-middle">
-			<a href="<?= 'PANIER' ?>" class=" align-middle">
-				<i class="fas fa-shopping-basket nav_size text-white my-auto"></i>
+			<a   class=" align-middle">
+				<i id="basket_icon" class="fas fa-shopping-basket nav_size text-white my-auto"></i>
 			</a>
 		</li>
+		<!-- basket -->
+		<div id="basket_div" class="panier ombre w75 overflow-auto">
+			<p class="basket_title ombre-t text-center"><?= empty($this->basket->get_basket()) ? 'Votre panier est vide !' : 'Votre panier :' ?></p>
+			<?php
+			foreach ($basket as $row)
+			{?>
+				<div class=''>
+					<a href=<?= site_url("brain/product/".$row['element']['id']) ?>>
+						<img src="<?= base_url("assets/img/products/plants/".$row['element']['ref'].".".$row['element']['img']) ?>" alt="<?= $row['element']['name'] ?>" class="rounded-circle img_basket ombre" title="<?= $row['element']['name'] ?>">
+					</a>
+					<p class="font-weight-bold"><?= $row['element']['name'] ?></p>
+					<p class="font-weight-bold">X <?= $row['qty'] ?></p>
+					<p class="font-weight-bold"><?= $row['element']['price'] ?> €</p>
+
+					<?= form_open() ?>
+						<input type="hidden" name="bask_id" value="<?= $row['element']['id'] ?>">
+						<input type="submit" name="removeFromBasket" value="X">
+					</form>
+				</div>
+			<?php } ?>
+			<p class="basket_title ombre-t text-center"><?= empty($this->basket->get_basket()) ? '' : 'Payer' ?></p>
+		</div>
+
+		
 		<li class="nav-item avatar">
     		<a class="nav-link p-0" href="<?= site_url("brain/profile"); ?>">
   				<img src="<?= base_url('assets/img/products/plants/dio000.jpg') ?>" class="rounded-circle z-depth-0 nav_size" alt="avatar image">

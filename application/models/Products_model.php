@@ -14,6 +14,15 @@ class Products_model extends CI_Model
 		return $result;
 	}
 
+	public function products_select_categ()
+	{
+		$this->db->join('category', 'category.cat_id = products.cat_id');
+		$query = $this->db->get('products');
+		$result = $query->result();
+
+		return $result;
+	}
+
 	public function products_select_u($id)
 	{
 		$this->db->where('prod_id', $id);

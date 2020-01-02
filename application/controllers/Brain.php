@@ -8,6 +8,7 @@ class Brain extends CI_Controller
 	{
 		//appel du model
 		$this->load->model('Products_model');
+		 $this->load->model('Ranks_model');
 		//récupération des résultat de la method accueil
 		$result = $this->Products_model->products_select();
 
@@ -16,7 +17,7 @@ class Brain extends CI_Controller
 
 		
 
-		if ($this->input->post())
+		if ($this->input->post('categ'))
 		{
 			$this->Ranks_model->accueil_insert();
 			redirect("brain/accueil");
@@ -40,10 +41,38 @@ class Brain extends CI_Controller
 		$result = $this->Category_model->category_select_u($id);
 		$view['categ'] = $result;
 
-
-
+		
 		$this->my_header->set_header();
 		$this->load->view('products', $view);
+		$this->load->view('footer');
+	}
+
+	public function addToBasket()
+	{
+		if($this->input->post('addToBasket'))
+		{
+			$this->load->model('Products_model');
+			$row = $this->Products_model->products_select_u($this->input->post('id'));
+			$data = array(
+			    "id" => $row->prod_id,
+			    "name" => $row->prod_name,				
+			    "price" => $row->prod_price,
+			    "ref" => $row->prod_ref,
+			    "img" => $row->prod_img,
+			    "cat_id" => $row->cat_id
+			);
+			$this->basket->add($data);
+			header('location:'.$_SERVER['HTTP_REFERER']);
+		}
+	}
+
+	public function product($id)
+	{
+		$this->load->model('Products_model');
+		$result = $this->Products_model->products_select_u($id);
+
+		$this->my_header->set_header();
+		$this->load->view('product', $result);
 		$this->load->view('footer');
 	}
 
@@ -256,6 +285,9 @@ class Brain extends CI_Controller
 						$this->session->login = $result->user_login;
 						$this->session->mail = $result->user_mail;
 						$this->session->rank = $rankResult->rank_name;
+						$this->session->name = $result->user_name;
+						$this->session->firstname = $result->user_firstname;
+						$this->session->cDate = $result->user_cDate;
 
 						redirect('brain/profile');
 					}
@@ -382,6 +414,9 @@ class Brain extends CI_Controller
 		$this->session->login = $result->user_login;
 		$this->session->mail = $result->user_mail;
 		$this->session->rank = $rankResult->rank_name;
+		$this->session->name = $result->user_name;
+		$this->session->firstname = $result->user_firstname;
+		$this->session->cDate = $result->user_cDate;
 
 		$msg['msg'] = 'Merci d\'avoir confirmé votre e-mail, votre compte est maintenant actif !';
 		$this->my_header->set_header();
