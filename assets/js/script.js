@@ -171,4 +171,21 @@ $(document).ready(function()
 				$("#orders_profile_div").css("display","none");
 			}
 		});
-    });
+
+		$('#phone_btn').click(function()
+		{		
+			if($('#phone_div').css('display') == 'block')
+			{
+				$('#phone_div').toggle('',function()
+				{
+					$('#phone_field').toggle('');
+				});
+			}
+			else{
+				$('#phone_field').toggle('',function()
+				{
+					$('#phone_div').toggle('');
+				});
+			}		
+		});
+	});

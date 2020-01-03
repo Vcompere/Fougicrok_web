@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Brain extends CI_Controller
 {
+	// page d'accueil
 	public function accueil()
 	{
 		//appel du model
@@ -30,6 +31,7 @@ class Brain extends CI_Controller
 		}
 	}
 
+	// page liste des produits
 	public function products($id)
 	{
 		//$this->output->enable_profiler(TRUE);
@@ -47,6 +49,7 @@ class Brain extends CI_Controller
 		$this->load->view('footer');
 	}
 
+	// fonction d'ajout d'un item dans le panier (cf: https://github.com/gregjaouen/codeigniter_libraries)
 	public function addToBasket()
 	{
 		if($this->input->post('addToBasket'))
@@ -61,11 +64,15 @@ class Brain extends CI_Controller
 			    "img" => $row->prod_img,
 			    "cat_id" => $row->cat_id
 			);
+
 			$this->basket->add($data);
+
+			//redirige instantanément sur la fonction appelante
 			header('location:'.$_SERVER['HTTP_REFERER']);
 		}
 	}
 
+	// page individuelle de produit
 	public function product($id)
 	{
 		$this->load->model('Products_model');
@@ -76,6 +83,7 @@ class Brain extends CI_Controller
 		$this->load->view('footer');
 	}
 
+	// TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO TO DO
 	public function category()
 	{
 		//$this->output->enable_profiler(TRUE);
@@ -96,6 +104,16 @@ class Brain extends CI_Controller
 		}
 	}
 
+
+
+
+
+
+
+
+
+
+
 	public function delete() 
 	{
 		//$this->output->enable_profiler(TRUE);	
@@ -104,6 +122,9 @@ class Brain extends CI_Controller
 		$this->Category_model->category_delete($id);
 		redirect("brain/category");
 	}
+
+
+
 
 	public function categ_modif($id)
 	{
@@ -125,15 +146,31 @@ class Brain extends CI_Controller
 		}
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+	// fonction affichant la page adéquate en fonction du statut de l'utilisateur : connecté ou non
 	public function profile()
-	{
+	{	
+		// si connecté, affiche la page "Mon compte"
 		if ($this->session->loged)
 		{
+			$this->load->model('Users_model');
+			$data['info'] = $this->Users_model->users_select_u($_SESSION['login']);
+
 			$this->my_header->set_header();
-			$this->load->view('profile');
+			$this->load->view('profile', $data);
 			$this->load->view('footer');	
 		}
-		else
+		else //si non connecté, affiche la page d'authentification 
 		{
 			$this->my_header->set_header();
 			$this->load->view('sign');
@@ -141,15 +178,17 @@ class Brain extends CI_Controller
 		}
 	}
 
+	// fonction pour se déconnecter (détruire la sesssion)
 	public function logout()
 	{
 		$this->session->sess_destroy();
 		redirect('brain/accueil');	
 	}
 
+	// formulaire d'inscription
 	public function signup()
 	{
-		if ($this->form_validation->run('signup') == FALSE)
+		if ($this->form_validation->run('signup') == FALSE) // contrôle de saisie natif à CI
         {
         	$data["signup"] = TRUE;
         	$this->my_header->set_header();
@@ -159,10 +198,12 @@ class Brain extends CI_Controller
         else
         {
 			// $this->output->enable_profiler(TRUE);
+
+			//récupération des données et traitement de celles-ci avant insertion en DB
         	$data = $this->input->post();
 			
 			unset($data['user_passwordConfirm']);
-			$signupDate = new Datetime();
+			// $signupDate = new Datetime();
 			$data['user_password'] = password_hash($this->input->post('user_password'),PASSWORD_DEFAULT);
 			$data['user_try'] = 0;
 			$data['user_blocked'] = md5($this->input->post('user_login'));
@@ -170,6 +211,7 @@ class Brain extends CI_Controller
 			$this->load->model('Users_model');
 			$this->Users_model->users_insert($data);
 
+			// génération du mail de confirmation/activation
         	include 'application/views/signup_mail.php';
 			$this->email->from('nepasrepondre@fougicrok.com');
 			$this->email->to($this->input->post('user_mail'));
@@ -178,6 +220,7 @@ class Brain extends CI_Controller
 			$this->email->message($message);
 			$this->email->send();
 
+			// message affiché sur la view "texted"
 			$msg['msg'] = 'Un mail d\'activation vient d\'être envoyé à '.$data['user_mail'].', consultez votre boite mail !';
 			$this->my_header->set_header();
 			$this->load->view('texted', $msg);
@@ -185,6 +228,8 @@ class Brain extends CI_Controller
 		}
 	}
 
+
+	//fonction de reenvoi de mail
 	public function reMail()
 	{
 		if ($this->form_validation->run('reMail') == FALSE && $this->input->post('mail') != $this->input->post('oriMail'))
@@ -222,6 +267,7 @@ class Brain extends CI_Controller
 
 	}
 
+	//vérifie l'existence du login dans la DB
 	public function exist_login($login)
 	{
 		$this->load->model('Users_model');
@@ -237,15 +283,16 @@ class Brain extends CI_Controller
 		}
 	}
 
+	//formulaire de connexion
 	public function signin()
 	{
     	$login = $this->input->post('signin_login');
     	$this->load->model('Users_model');
 		$result = $this->Users_model->users_select_u($login);
 
-		if ($this->exist_login($login))
+		if ($this->exist_login($login)) // le login existe
 		{
-			if ($result->user_blocked != NULL)
+			if ($result->user_blocked != NULL) // le compte est bloqué
         	{
         		$msg['msg'] = 'Votre compte n\'est pas activé, vérifiez votre boite mail !';
         		$msg['reMail'] = TRUE;
@@ -256,25 +303,25 @@ class Brain extends CI_Controller
 				$this->load->view('texted', $msg);
 				$this->load->view('footer');
         	}
-        	else
+        	else // le compte est activé
         	{
-        		if ($result->user_try >= 3)
+        		if ($result->user_try >= 3) // 3 mauvais essais de mdp
         		{
         			$data['result'] = $result;
 					$this->my_header->set_header();
 					$this->load->view('password_lost',$data);
 					$this->load->view('footer');
         		}
-        		else
+        		else // nombre d'essais de mdp < 3
         		{
-	        		if ($this->form_validation->run('signin') == FALSE)
+	        		if ($this->form_validation->run('signin') == FALSE) // controle de saisie faux
 			        {
 			        	$data["signin"] = TRUE;
 			        	$this->my_header->set_header();
 						$this->load->view('sign', $data);
 						$this->load->view('footer');
 			        }
-			        else
+			        else // tout est ok, connexion permise
 			        {
 			        	$this->load->model('Ranks_model');
 			        	$rankResult = $this->Ranks_model->ranks_select_u($result->rank_id);
@@ -288,13 +335,14 @@ class Brain extends CI_Controller
 						$this->session->name = $result->user_name;
 						$this->session->firstname = $result->user_firstname;
 						$this->session->cDate = $result->user_cDate;
+						$this->session->phone = $result->user_phone;
 
 						redirect('brain/profile');
 					}
 				}
         	}
         }
-        else
+        else // le login n'existe pas
         {
         	$data["spanLogin"] = 'Ce login n\'existe pas';
         	$data["signin"] = TRUE;
@@ -304,12 +352,13 @@ class Brain extends CI_Controller
         }
 	}
 
+	// page "mot de passe perdu"
 	public function password_lost()
 	{
 		$this->load->model('Users_model');
 		$result = $this->Users_model->users_select_u($this->input->post('login'));
 		
-		if ($this->form_validation->run('pwd_lost') == FALSE)
+		if ($this->form_validation->run('pwd_lost') == FALSE) // controle de saisie
 		{	
 			$data['result'] = $result;
 			$this->my_header->set_header();
@@ -318,7 +367,7 @@ class Brain extends CI_Controller
 		}
 		else
 		{
-			if($this->input->post('answer') != $result->user_answer)
+			if($this->input->post('answer') != $result->user_answer) // vérification de la véracité de la réponse
 			{
 				$data["spanAnswer"] = 'La réponse ne correspond pas';
 				$data['result'] = $result;
@@ -330,11 +379,11 @@ class Brain extends CI_Controller
 			{
 				$this->Users_model->users_try_reset($this->input->post('login'));
 
-				if(isset($_POST['remember']))
+				if(isset($_POST['remember'])) // si l'utilisateur se souvient de son mdp, il peut re-tenter
 				{
 					redirect('brain/profile');
 				}
-				else if(isset($_POST['mail']))
+				else if(isset($_POST['mail'])) // si l'utilisateur ne se souvient plus de son mdp, un mail de modification lui est envoyé
 				{
 					$data['user_blocked'] = md5($result->user_login);
 					$this->Users_model->users_blocked($data['user_blocked'], $result->user_id);
@@ -356,16 +405,17 @@ class Brain extends CI_Controller
 		}
 	}
 
+	// page de modification de mdp
 	public function password_reset($block)
 	{
 		//$this->output->enable_profiler(TRUE);
-		if ($this->form_validation->run('pwd_reset') == FALSE)
+		if ($this->form_validation->run('pwd_reset') == FALSE) //controle de saisie erroné
 		{
 			$this->my_header->set_header();
 			$this->load->view('password_reset');
 			$this->load->view('footer');
 		}
-		else
+		else // si le controle de saisie OK, update du mdp dans la db et débloquage du compte
 		{
 			$this->load->model('Users_model');
 			$result = $this->Users_model->users_select_u_block($block);
@@ -379,6 +429,7 @@ class Brain extends CI_Controller
 		}
 	}
 	
+	// vérifie que le mdp saisi correspond à celui enregistré
 	public function password_verify($pwd)
 	{
 		$this->load->model('Users_model');
@@ -402,14 +453,17 @@ class Brain extends CI_Controller
 
 	}
 
+	// page d'activation/confirmation (compte/mail) - l'utiisateur est automatiquement connecté en arrivant ici
 	public function mail_success($block)
 	{
+		// activation du compte et récupération des infos users
 		$this->load->model('Users_model');
 		$this->load->model('Ranks_model');
 		$result = $this->Users_model->users_select_u_block($block);
 		$this->Users_model->users_blocked_reset($block);
 		$rankResult = $this->Ranks_model->ranks_select_u($result->rank_id);
 
+		// déclaration de la session = connexion de user
 		$this->session->loged = TRUE;
 		$this->session->login = $result->user_login;
 		$this->session->mail = $result->user_mail;
@@ -418,6 +472,7 @@ class Brain extends CI_Controller
 		$this->session->firstname = $result->user_firstname;
 		$this->session->cDate = $result->user_cDate;
 
+		// message de succès + redirection auto
 		$msg['msg'] = 'Merci d\'avoir confirmé votre e-mail, votre compte est maintenant actif !';
 		$this->my_header->set_header();
 		$this->load->view('texted', $msg);
