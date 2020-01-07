@@ -52,10 +52,10 @@ class Brain extends CI_Controller
 	// fonction d'ajout d'un item dans le panier (cf: https://github.com/gregjaouen/codeigniter_libraries)
 	public function addToBasket()
 	{
-		if($this->input->post('addToBasket'))
-		{
+		// if($this->input->post('addToBasket'))
+		// {
 			$this->load->model('Products_model');
-			$row = $this->Products_model->products_select_u($this->input->post('id'));
+			$row = $this->Products_model->products_select_u($this->input->post('addToBasket'));
 			$data = array(
 			    "id" => $row->prod_id,
 			    "name" => $row->prod_name,				
@@ -69,7 +69,7 @@ class Brain extends CI_Controller
 
 			//redirige instantanément sur la fonction appelante
 			header('location:'.$_SERVER['HTTP_REFERER']);
-		}
+		// }
 	}
 
 	// page individuelle de produit

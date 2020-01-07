@@ -5,7 +5,6 @@
 
 
 	
-	
 	<div id="signup_form" <?= !isset($signup)  ? 'class="hide"' : 'class="show"' ?>>
 		<?= form_open('brain/signup'); ?>
 		<div class="container">
@@ -21,7 +20,7 @@
 					<span id="user_login_span" class="span_signup text-danger font-weight-bold"><?= form_error('user_login') ?></span><br>
 
 					<label class="hide" for="user_password">Mot de passe</label>
-					<input required type="password" name="user_password" class="form_signup input border-right-0  border-left-0  border-top-0" placeholder="Mot de passe"><br>
+					<input id="password" required type="password" name="user_password" class="form_signup input border-right-0  border-left-0  border-top-0" placeholder="Mot de passe"><br>
 					<span id="user_password_span" class="span_signup text-danger font-weight-bold"><?= form_error('user_password') ?></span><br>
 				</div>
 
@@ -35,8 +34,8 @@
 					<span id="user_mail_span" class="span_signup text-danger font-weight-bold"><?= form_error('user_mail') ?></span><br>
 
 					<label class="hide" for="user_passwordConfirm">Confirmer mot de passe</label>
-					<input required type="password" name="user_passwordConfirm" class="form_signup input border-right-0  border-left-0  border-top-0" placeholder="Confirmer mot de passe"> <br>
-					<span id="user_passwordConfirm_span" class="span_signup text-danger font-weight-bold"><?= form_error('user_passwordConfirm') ?></span><br>
+					<input id="passwordConfirm" required type="password" name="user_passwordConfirm" class="input border-right-0  border-left-0  border-top-0" placeholder="Confirmer mot de passe"> <br>
+					<span id="passwordConfirm_span" class="span_signup text-danger font-weight-bold"><?= form_error('user_passwordConfirm') ?></span><br>
 				</div>
 
 			    <label class="hide" for="user_question">Question de sécurité :</label>
@@ -51,7 +50,7 @@
 
 				<label class="hide" for="user_answer">Réponse à la question de sécurité</label>
 				<input required type="text" name="user_answer" class="form_signup input border-right-0  border-left-0  border-top-0 fullw mt-3" placeholder="Réponse à la question de sécurité" value='<?= isset($_POST["user_answer"]) ? $_POST["user_answer"] : "" ?>'>
-				<span id="answer_span" class="text-danger font-weight-bold"><?= form_error('user_answer') ?></span><br>
+				<span id="user_answer_span" class="text-danger font-weight-bold"><?= form_error('user_answer') ?></span><br>
 
 		    </div>
 		    <div class="user_text-center">

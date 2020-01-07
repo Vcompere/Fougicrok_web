@@ -18,10 +18,9 @@
 				<p class="text-center font-weight-bold text-white price_card ombre-t mx-auto"><?= $row->prod_price.' €' ?></p>
 
 				<!-- formulaire caché pour récupération de donnée et ajout au panier -->
-				<?= form_open('brain/addToBasket') ?>
-					<input type="hidden" name="id" value="<?= $row->prod_id ?>">
-					<input type="submit" name="addToBasket" value="Ajouter au panier">
-				</form>
+					<!-- <input type="hidden" name="id" value="<?= $row->prod_id ?>"> -->
+					<input id="basketAdd<?= $row->prod_id ?>" type="submit" name="addToBasket" class="basketAdd btn" value=<?= $row->prod_id ?>>
+				<!-- </form> -->
 			</div>
 		</div>
 		<?php } ?>

@@ -206,21 +206,27 @@ $(document).ready(function()
 		// 	});
 		// });
 
-		// $('#user_name').keyup(function()
-		// {
-		// 	var get = document.location.pathname.split('/');
-		// 	var url = document.location.protocol + '//' + document.location.host + '/' + get[1] + '/' + get[2] + '/';
+		$('#passwordConfirm').keyup(function()
+		{
+			var pwd = $('#password').val();
+			var pwdC = $(this).val();
 
-		// 	$.ajax({
-		// 		method: "POST",
-		// 		url: url + 'Brain/signup/user_name',
-		// 		data: {user_name: $(this).val()}
-		// 		})
-		// 		.done(function(data) {
-					
-		// 			$('#user_name_span').html(data);
-		// 	});
-		// });
+			if(pwdC != "")
+			{
+				if(pwd != pwdC)
+				{
+					$('#passwordConfirm_span').html('Différent du premier mot de passe');
+				}
+				else
+				{
+					$('#passwordConfirm_span').html('');
+				}	
+			}
+			else
+			{
+				$('#passwordConfirm_span').html('Confirmation du mot de passe manquante');
+			}
+		});
 
 		$('.form_signup').keyup(function()
 		{
@@ -228,16 +234,37 @@ $(document).ready(function()
 			var get = document.location.pathname.split('/');
 			var url = document.location.protocol + '//' + document.location.host + '/' + get[1] + '/' + get[2] + '/';
 
-			console.log('@field', field);
-
 			$.ajax({
 				method: "POST",
 				url: url + 'Brain/signup',
 				data: {input_name: field, input_value: $(this).val()}
-				// data: JSON.parse('{' + field +  ' : ' +  $(this).val() + '}'),
-				})
-				.done(function(data) {
+			})
+				.done(function(data)
+				{
 					$('#'+ field + '_span').html(data);
-			});
+				});
+		});
+
+		$('.basketAdd').click(function()
+		{
+			console.log($(this).val());
+			var get = document.location.pathname.split('/');
+			var url = document.location.protocol + '//' + document.location.host + '/' + get[1] + '/' + get[2] + '/';
+
+			$.ajax({
+				method: "POST",
+				url: url + 'Brain/addToBasket',
+				data: {addToBasket: $(this).val()}
+			})
+				.done(function()
+				{
+					//comment refresh le panier en ajax, donc refresh l'affichage html avec l'appel en php du contenu de SESSION basket ? refresh seulement 1 div
+
+					$('#basket_div').load(location.href+'#basket_div>*','');
+
+
+					// $('#basket_div').load('../../application/views/basket.php');
+					$("#basket_div").css("display","block");
+				});
 		});
 	});
