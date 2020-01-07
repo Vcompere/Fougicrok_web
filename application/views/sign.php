@@ -5,6 +5,7 @@
 
 
 	
+	
 	<div id="signup_form" <?= !isset($signup)  ? 'class="hide"' : 'class="show"' ?>>
 		<?= form_open('brain/signup'); ?>
 		<div class="container">
