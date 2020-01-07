@@ -188,4 +188,56 @@ $(document).ready(function()
 				});
 			}		
 		});
+
+		// // form validation : sign up
+		// $('#user_firstname').keyup(function()
+		// {
+		// 	var get = document.location.pathname.split('/');
+		// 	var url = document.location.protocol + '//' + document.location.host + '/' + get[1] + '/' + get[2] + '/';
+
+		// 	$.ajax({
+		// 		method: "POST",
+		// 		url: url + 'Brain/signup/user_firstname',
+		// 		data: {user_firstname: $(this).val()}
+		// 		})
+		// 		.done(function(data) {
+					
+		// 			$('#user_firstname_span').html(data);
+		// 	});
+		// });
+
+		// $('#user_name').keyup(function()
+		// {
+		// 	var get = document.location.pathname.split('/');
+		// 	var url = document.location.protocol + '//' + document.location.host + '/' + get[1] + '/' + get[2] + '/';
+
+		// 	$.ajax({
+		// 		method: "POST",
+		// 		url: url + 'Brain/signup/user_name',
+		// 		data: {user_name: $(this).val()}
+		// 		})
+		// 		.done(function(data) {
+					
+		// 			$('#user_name_span').html(data);
+		// 	});
+		// });
+
+		$('.form_signup').keyup(function()
+		{
+			var field = $(this).attr('name');
+			var get = document.location.pathname.split('/');
+			var url = document.location.protocol + '//' + document.location.host + '/' + get[1] + '/' + get[2] + '/';
+
+			console.log('@field', field);
+
+			$.ajax({
+				method: "POST",
+				url: url + 'Brain/signup',
+				data: {input_name: field, input_value: $(this).val()}
+				// data: JSON.parse('{' + field +  ' : ' +  $(this).val() + '}'),
+				})
+				.done(function(data) {
+					$('#'+ field + '_span').html(data);
+			});
+		});
 	});

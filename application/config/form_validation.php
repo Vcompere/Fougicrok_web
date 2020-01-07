@@ -124,7 +124,7 @@ $config = array(
 							'required',
 							'regex_match['.$rgxMultipass.']'),
 				'errors' => array(
-							'required' => '... just why ? It\'s for you, not me',
+							'required' => '...why ? It\'s for you, not us',
 							'regex_match' => 'Nice try    !*HaCkErMaN*!')
 			)
 		),

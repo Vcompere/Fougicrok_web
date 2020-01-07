@@ -188,12 +188,30 @@ class Brain extends CI_Controller
 	// formulaire d'inscription
 	public function signup()
 	{
+
+		if (!empty($_POST['input_name']) && !empty($_POST['input_value']))
+		{ 
+			$field = $_POST['input_name'];
+			$_POST[$field] = $_POST['input_value'];
+			unset($_POST['input_name']);
+			unset($_POST['input_name']);
+		}
+
 		if ($this->form_validation->run('signup') == FALSE) // contrôle de saisie natif à CI
         {
+        	if (isset($field))
+        	{
+				echo form_error($field);
+			}
+			
+        	if ($this->input->post('signup_submit'))
+        	{
         	$data["signup"] = TRUE;
         	$this->my_header->set_header();
 			$this->load->view('sign', $data);
 			$this->load->view('footer');
+			}
+
         }
         else
         {
@@ -202,6 +220,7 @@ class Brain extends CI_Controller
 			//récupération des données et traitement de celles-ci avant insertion en DB
         	$data = $this->input->post();
 			
+			unset($data['signup_submit']);
 			unset($data['user_passwordConfirm']);
 			// $signupDate = new Datetime();
 			$data['user_password'] = password_hash($this->input->post('user_password'),PASSWORD_DEFAULT);
@@ -226,6 +245,13 @@ class Brain extends CI_Controller
 			$this->load->view('texted', $msg);
 			$this->load->view('footer');
 		}
+	}
+
+	public function signupTemp()
+	{
+		$this->signup();
+		
+
 	}
 
 
