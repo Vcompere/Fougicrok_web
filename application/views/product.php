@@ -10,9 +10,10 @@
 	<p class="text-center font-weight-bold text-white ombre-t mx-auto"><?= $prod_price.' €' ?></p>
 	
 	<!-- formulaire caché pour récupération de donnée et ajout au panier -->
-	<?= form_open('brain/addToBasket') ?>
-		<input type="hidden" name="id" value="<?= $prod_id ?>">
+		<!-- <input type="hidden" name="id" value="<?= $prod_id ?>">
 		<input type="submit" name="addToBasket" value="Ajouter au panier">
-	</form>
+
+	</form> -->
+	<input id="basketAdd<?= $prod_id ?>" type="submit" name="addToBasket" class="basketAdd btn" value=<?= $prod_id ?>>
 
 </div>

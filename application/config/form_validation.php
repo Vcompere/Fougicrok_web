@@ -81,12 +81,12 @@ $config = array(
 				'label' => 'Mot de passe',
 				'rules' => array(
 							'required',
-							'regex_match['.$rgxPassword.']',
-							'min_length[8]'),
+							'min_length[8]',
+							'regex_match['.$rgxPassword.']'),
 				'errors' => array(
 							'required' => 'Mot de passe manquant',
-							'regex_match' => 'Saisie invalide',
-							'min_length' => '8 caractères minimum')
+							'min_length' => '8 caractères minimum',
+							'regex_match' => 'Saisie invalide')
 			),
 
 			array
@@ -95,10 +95,12 @@ $config = array(
 				'label' => 'Confirmer mot de passe',
 				'rules' => array(
 							'required',
+							'regex_match['.$rgxPassword.']',
 							'matches[user_password]')
 							,
 				'errors' => array(
 							'required' => 'Confirmation du mot de passe manquante',
+							'regex_match' => 'Saisie invalide',
 							'matches' => 'Différent du premier mot de passe')
 			),
 

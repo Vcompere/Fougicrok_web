@@ -16,11 +16,11 @@
 		            <span id="user_firstname_span" class="span_signup text-danger font-weight-bold"><?= form_error('user_firstname') ?></span><br>
 
 		            <label class="hide" for="user_login">Login</label>
-					<input required type="text" name="user_login" class="form_signup input border-right-0  border-left-0  border-top-0" placeholder="Login" value='<?= isset($_POST["user_login"]) ? $_POST["user_login"] : "" ?>'><br>
+					<input id="user_login" required type="text" name="user_login" class="form_signup input border-right-0  border-left-0  border-top-0" placeholder="Login" value='<?= isset($_POST["user_login"]) ? $_POST["user_login"] : "" ?>'><br>
 					<span id="user_login_span" class="span_signup text-danger font-weight-bold"><?= form_error('user_login') ?></span><br>
 
 					<label class="hide" for="user_password">Mot de passe</label>
-					<input id="password" required type="password" name="user_password" class="form_signup input border-right-0  border-left-0  border-top-0" placeholder="Mot de passe"><br>
+					<input id="user_password" required type="password" name="user_password" class="form_signup input border-right-0  border-left-0  border-top-0" placeholder="Mot de passe"><br>
 					<span id="user_password_span" class="span_signup text-danger font-weight-bold"><?= form_error('user_password') ?></span><br>
 				</div>
 
@@ -30,11 +30,11 @@
 					<span id="user_name_span" class="span_signup text-danger font-weight-bold"><?= form_error('user_name') ?></span><br>
 
 					<label class="hide" for="user_mail">Mail</label>
-					<input required type="text" name="user_mail" class="form_signup input border-right-0  border-left-0  border-top-0" placeholder="Mail" value='<?= isset($_POST["user_mail"]) ? $_POST["user_mail"] : "" ?>'><br>
+					<input id="user_mail" required type="text" name="user_mail" class="form_signup input border-right-0  border-left-0  border-top-0" placeholder="Mail" value='<?= isset($_POST["user_mail"]) ? $_POST["user_mail"] : "" ?>'><br>
 					<span id="user_mail_span" class="span_signup text-danger font-weight-bold"><?= form_error('user_mail') ?></span><br>
 
 					<label class="hide" for="user_passwordConfirm">Confirmer mot de passe</label>
-					<input id="passwordConfirm" required type="password" name="user_passwordConfirm" class="input border-right-0  border-left-0  border-top-0" placeholder="Confirmer mot de passe"> <br>
+					<input id="user_passwordConfirm" required type="password" name="user_passwordConfirm" class="input border-right-0  border-left-0  border-top-0" placeholder="Confirmer mot de passe"> <br>
 					<span id="passwordConfirm_span" class="span_signup text-danger font-weight-bold"><?= form_error('user_passwordConfirm') ?></span><br>
 				</div>
 
@@ -49,7 +49,7 @@
 				<span id="user_question_span" class="text-danger font-weight-bold"><?= form_error('user_question') ?></span><br>
 
 				<label class="hide" for="user_answer">Réponse à la question de sécurité</label>
-				<input required type="text" name="user_answer" class="form_signup input border-right-0  border-left-0  border-top-0 fullw mt-3" placeholder="Réponse à la question de sécurité" value='<?= isset($_POST["user_answer"]) ? $_POST["user_answer"] : "" ?>'>
+				<input id="user_answer" required type="text" name="user_answer" class="form_signup input border-right-0  border-left-0  border-top-0 fullw mt-3" placeholder="Réponse à la question de sécurité" value='<?= isset($_POST["user_answer"]) ? $_POST["user_answer"] : "" ?>'>
 				<span id="user_answer_span" class="text-danger font-weight-bold"><?= form_error('user_answer') ?></span><br>
 
 		    </div>

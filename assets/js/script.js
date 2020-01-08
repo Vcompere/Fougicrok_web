@@ -206,24 +206,36 @@ $(document).ready(function()
 		// 	});
 		// });
 
-		$('#passwordConfirm').keyup(function()
+		$('#user_passwordConfirm').keyup(function()
 		{
-			var pwd = $('#password').val();
+			var regexPwd = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.-_€<>\/,;:])[A-Za-z\d@$!%*?&.-_€<>\/,;:]{8,}$/;
+			var pwd = $('#user_password').val();
 			var pwdC = $(this).val();
 
 			if(pwdC != "")
 			{
-				if(pwd != pwdC)
+				if (!regexPwd.test(pwdC))
 				{
-					$('#passwordConfirm_span').html('Différent du premier mot de passe');
+					$('#passwordConfirm_span').css("color", "red");
+					$('#passwordConfirm_span').html('Saisie invalide');
 				}
 				else
 				{
-					$('#passwordConfirm_span').html('');
+					if(pwd != pwdC)
+					{
+						$('#passwordConfirm_span').css("color", "red");
+						$('#passwordConfirm_span').html('Différent du premier mot de passe');
+					}
+					else
+					{
+						$('#passwordConfirm_span').css("color","rgba(151, 219, 0, 1)");
+						$('#passwordConfirm_span').html('');
+					}
 				}	
 			}
 			else
 			{
+				$('#passwordConfirm_span').css("color", "red");
 				$('#passwordConfirm_span').html('Confirmation du mot de passe manquante');
 			}
 		});
@@ -242,6 +254,17 @@ $(document).ready(function()
 				.done(function(data)
 				{
 					$('#'+ field + '_span').html(data);
+
+					if(data.length > 2)
+					{
+						console.log(data);
+						console.log(data.length);
+						$('#'+ field).css("color","red");
+					}
+					else
+					{
+						$('#'+ field).css("color","rgba(151, 219, 0, 1)");
+					}
 				});
 		});
 
@@ -256,11 +279,11 @@ $(document).ready(function()
 				url: url + 'Brain/addToBasket',
 				data: {addToBasket: $(this).val()}
 			})
-				.done(function()
+				.done(function(data)
 				{
 					//comment refresh le panier en ajax, donc refresh l'affichage html avec l'appel en php du contenu de SESSION basket ? refresh seulement 1 div
 
-					$('#basket_div').load(location.href+'#basket_div>*','');
+					$('#basket_div').html(data);
 
 
 					// $('#basket_div').load('../../application/views/basket.php');

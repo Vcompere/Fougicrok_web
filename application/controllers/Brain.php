@@ -50,6 +50,24 @@ class Brain extends CI_Controller
 	}
 
 	// fonction d'ajout d'un item dans le panier (cf: https://github.com/gregjaouen/codeigniter_libraries)
+	public function removeFromBasket()
+	{
+		if($this->input->post('removeFromBasket'))
+			{
+				$this->load->model('Products_model');
+				$row = $this->Products_model->products_select_u($this->input->post('bask_id'));
+				$removeData = array(
+				    "id" => $row->prod_id,
+				    "name" => $row->prod_name,				
+				    "price" => $row->prod_price,
+				    "ref" => $row->prod_ref,
+				    "img" => $row->prod_img,
+				);
+				$this->basket->remove($removeData);
+				header('location:'.$_SERVER['HTTP_REFERER']);
+			}
+	}
+
 	public function addToBasket()
 	{
 		// if($this->input->post('addToBasket'))
@@ -66,9 +84,10 @@ class Brain extends CI_Controller
 			);
 
 			$this->basket->add($data);
+			$this->load->view('basket');
 
 			//redirige instantanément sur la fonction appelante
-			header('location:'.$_SERVER['HTTP_REFERER']);
+			//header('location:'.$_SERVER['HTTP_REFERER']);
 		// }
 	}
 
@@ -91,7 +110,7 @@ class Brain extends CI_Controller
 		$result = $this->Category_model->category_select();
 		$view['list'] = $result;
 
-		if ($this->input->post())
+		if ($this->input->post('insertCat'))
 		{
 			$this->Category_model->category_insert();
 			redirect("brain/category");
